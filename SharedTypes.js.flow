@@ -1,0 +1,15 @@
+/**
+ * @providesModule SharedTypes
+ * @flow
+ */
+
+export type AppData = {
+  module_name: string,
+  build_name: string,
+  view_count: number,
+  url_token: string,
+  creator?: {
+    avatar_url: string,
+    username: string,
+  },
+};
