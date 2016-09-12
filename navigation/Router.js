@@ -8,6 +8,7 @@ import {
 } from '@exponent/ex-navigation';
 
 import ExploreScreen from 'ExploreScreen';
+import FakeExploreScreen from 'FakeExploreScreen';
 import MyAppsScreen from 'MyAppsScreen';
 import HistoryScreen from 'HistoryScreen';
 import AboutScreen from 'AboutScreen';
@@ -17,6 +18,7 @@ import AuthenticationScreen from 'AuthenticationScreen';
 
 export default createRouter(() => ({
   explore: () => ExploreScreen,
+  fakeExplore: () => FakeExploreScreen,
   myApps: () => MyAppsScreen,
   history: () => HistoryScreen,
   about: () => AboutScreen,

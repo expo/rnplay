@@ -44,7 +44,7 @@ export default class DrawerNavigationLayout extends React.Component {
         initialItem="about">
 
         <DrawerNavigationItem
-          id="explore"
+          id="fakeExplore"
           selectedStyle={styles.selectedItemStyle}
           renderTitle={isSelected => this._renderTitle('Explore', isSelected)}
           renderIcon={isSelected => this._renderIcon('explore', isSelected)}>

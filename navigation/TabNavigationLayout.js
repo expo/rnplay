@@ -44,7 +44,7 @@ export default class TabNavigationLayout extends React.Component {
           renderIcon={isSelected => this._renderIcon('Explore', 'ios-compass-outline', isSelected)}>
           <StackNavigation
             defaultRouteConfig={defaultRouteConfig}
-            initialRoute={Router.getRoute('explore')}
+            initialRoute={Router.getRoute('fakeExplore')}
           />
         </TabNavigationItem>
 
