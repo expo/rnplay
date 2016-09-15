@@ -3,6 +3,9 @@
  * @flow
  */
 
+import Exponent, {
+  Components,
+} from 'exponent';
 import React from 'react';
 import {
   AppRegistry,
@@ -22,9 +25,6 @@ import {
   NavigationProvider,
   StackNavigation,
 } from '@exponent/ex-navigation';
-import Exponent, {
-  Components,
-} from 'exponent';
 import {
   MaterialIcons,
   Ionicons,
