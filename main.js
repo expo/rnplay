@@ -127,7 +127,12 @@ class App extends React.Component {
       return;
     }
 
-    this.props.dispatch(Actions.openApp(url));
+    if (url.indexOf('+reload') > 0) {
+      console.log('Reload!');
+      NativeModules.ExponentUtil.reload && NativeModules.ExponentUtil.reload();
+    } else {
+      this.props.dispatch(Actions.openApp(url));
+    }
   }
 
   render() {
