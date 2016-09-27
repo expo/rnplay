@@ -1,7 +1,7 @@
 /**
  * @providesModule LocalStorage
  * @flow
-j*/
+ */
 
 import { AsyncStorage } from 'react-native';
 
