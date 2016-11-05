@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 
+import { capitalize } from 'lodash';
 import RemoteAppListView from 'RemoteAppListView';
 import Colors from 'Colors';
 import Layout from 'Layout';
@@ -26,29 +27,30 @@ export default class ExploreScreen extends React.Component {
 
   render() {
     return (
-      <SlidingTabNavigation
-        initialTab="popular"
-        barBackgroundColor={Colors.tintColor}
-        position="top"
-        pressColor="rgba(0,0,0,0.2)">
+      <View style={{flex: 1}}>
+        <SlidingTabNavigation
+          initialTab="popular"
+          barBackgroundColor={Colors.tintColor}
+          position="top"
+          renderLabel={this._renderLabel}
+          pressColor="rgba(0,0,0,0.2)">
 
-        <SlidingTabNavigationItem
-          id="popular"
-          renderLabel={() => this._renderLabel('Popular', 'popularIconName')}>
-          {this._renderPopular()}
-        </SlidingTabNavigationItem>
+          <SlidingTabNavigationItem id="popular">
+            {this._renderPopular()}
+          </SlidingTabNavigationItem>
 
-        <SlidingTabNavigationItem
-          id="picks"
-          renderLabel={() => this._renderLabel('Picks', 'picksIconName')}>
-          {this._renderPicks()}
-        </SlidingTabNavigationItem>
+          <SlidingTabNavigationItem id="picks">
+            {this._renderPicks()}
+          </SlidingTabNavigationItem>
 
-      </SlidingTabNavigation>
+        </SlidingTabNavigation>
+      </View>
     );
   }
 
-  _renderLabel(title: string, iconName: string) {
+  _renderLabel({route}) {
+    let title = capitalize(route.key[0]);
+
     return (
       <RegularText style={{color: Colors.navigationBarTintColor}}>
         {title}

@@ -2,7 +2,7 @@
   "name": "Playground",
   "description": "Explore apps written on rnplay.org",
   "slug": "rnplay",
-  "sdkVersion": "10.0.0",
+  "sdkVersion": "11.0.0",
   "version": "3.0.4",
   "orientation": "portrait",
   "primaryColor": "#5a2096",

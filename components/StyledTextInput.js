@@ -61,7 +61,6 @@ export default class StyledTextInput extends React.Component {
 
 const styles = StyleSheet.create({
   textInputWrapper: {
-    flex: 1,
     borderBottomWidth: 1,
     marginBottom: 15,
   },
@@ -71,7 +70,6 @@ const styles = StyleSheet.create({
     paddingLeft: 2,
     fontSize: 18,
     color: '#fff',
-    flex: 1,
     height: 40,
   },
 });
