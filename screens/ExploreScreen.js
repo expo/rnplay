@@ -49,7 +49,7 @@ export default class ExploreScreen extends React.Component {
   }
 
   _renderLabel({route}) {
-    let title = capitalize(route.key[0]);
+    let title = capitalize(route.key);
 
     return (
       <RegularText style={{color: Colors.navigationBarTintColor}}>

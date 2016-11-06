@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: Colors.tintColor,
-    marginHorizontal,
+    paddingHorizontal: 15,
     paddingVertical: 15,
     alignSelf: 'stretch',
     alignItems: 'center',
