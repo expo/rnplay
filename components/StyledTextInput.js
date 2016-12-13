@@ -30,6 +30,7 @@ export default class StyledTextInput extends React.Component {
       <View style={[styles.textInputWrapper, {borderBottomColor}]}>
         <TextInput
           placeholderTextColor={placeholderTextColor}
+          underlineColorAndroid="transparent"
           ref={view => { this._textInput = view; }}
           {...this.props}
           onFocus={this._onFocus}

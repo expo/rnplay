@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.tintColor,
     paddingHorizontal: 15,
     paddingVertical: 15,
+    marginHorizontal: 20,
     alignSelf: 'stretch',
     alignItems: 'center',
     borderRadius: 5,
