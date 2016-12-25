@@ -3,7 +3,7 @@
   "description": "Explore apps written on rnplay.org",
   "slug": "rnplay",
   "sdkVersion": "12.0.0",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "orientation": "portrait",
   "primaryColor": "#5a2096",
   "androidHideExponentNotificationInShellApp": true,
@@ -16,9 +16,9 @@
   },
   "scheme": "rnplay",
   "ios": {
-    "bundleIdentifier": "org.rnplay.exp"
+    "bundleIdentifier": "org.rnplay.playground"
   },
   "android": {
-    "package": "org.rnplay.exp"
+    "package": "org.rnplay.playground"
   }
 }
