@@ -4,19 +4,13 @@
  */
 
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import {
   StackNavigation,
   DrawerNavigation,
   DrawerNavigationItem,
 } from '@exponent/ex-navigation';
-import {
-  MaterialIcons,
-} from '@exponent/vector-icons';
+import { MaterialIcons } from '@exponent/vector-icons';
 
 import { connect } from 'react-redux';
 
@@ -58,7 +52,8 @@ export default class DrawerNavigationLayout extends React.Component {
           id="myApps"
           selectedStyle={styles.selectedItemStyle}
           renderTitle={isSelected => this._renderTitle('My Apps', isSelected)}
-          renderIcon={isSelected => this._renderIcon('account-box', isSelected)}>
+          renderIcon={isSelected =>
+            this._renderIcon('account-box', isSelected)}>
           <StackNavigation
             defaultRouteConfig={defaultRouteConfig}
             initialRoute={Router.getRoute('myApps')}
@@ -92,7 +87,8 @@ export default class DrawerNavigationLayout extends React.Component {
           selectedStyle={styles.selectedItemStyle}
           onPress={() => this.props.dispatch(Actions.signOut())}
           renderTitle={isSelected => this._renderTitle('Sign out', isSelected)}
-          renderIcon={isSelected => this._renderIcon('exit-to-app', isSelected)}>
+          renderIcon={isSelected =>
+            this._renderIcon('exit-to-app', isSelected)}>
           <View />
         </DrawerNavigationItem>
       </DrawerNavigation>
@@ -101,29 +97,42 @@ export default class DrawerNavigationLayout extends React.Component {
 
   _renderHeader = () => {
     return (
-      <View style={{height: 125, paddingBottom: 12, paddingLeft: 12, backgroundColor: Colors.tintColor, justifyContent: 'flex-end'}}>
-        <RegularText style={{fontSize: 18, color: '#fff'}}>
+      <View
+        style={{
+          height: 125,
+          paddingBottom: 12,
+          paddingLeft: 12,
+          backgroundColor: Colors.tintColor,
+          justifyContent: 'flex-end',
+        }}>
+        <RegularText style={{ fontSize: 18, color: '#fff' }}>
           React Native Playground
         </RegularText>
       </View>
     );
   };
 
-  _renderTitle(text: string, isSelected: bool) {
+  _renderTitle(text: string, isSelected: boolean) {
     return (
-      <Text style={[styles.buttonTitleText, isSelected ? styles.buttonTitleTextSelected : {}]}>
+      <Text
+        style={[
+          styles.buttonTitleText,
+          isSelected ? styles.buttonTitleTextSelected : {},
+        ]}>
         {text}
       </Text>
     );
   }
 
-  _renderIcon(name: string, isSelected: bool) {
+  _renderIcon(name: string, isSelected: boolean) {
     return (
-      <View style={{width: 28}}>
+      <View style={{ width: 28 }}>
         <MaterialIcons
           name={name}
           size={28}
-          color={isSelected ? Colors.drawerIconSelected : Colors.drawerIconDefault}
+          color={
+            isSelected ? Colors.drawerIconSelected : Colors.drawerIconDefault
+          }
         />
       </View>
     );
@@ -140,6 +149,6 @@ const styles = StyleSheet.create({
     color: Colors.tintColor,
   },
   selectedItemStyle: {
-    backgroundColor: "#EBEBEB",
+    backgroundColor: '#EBEBEB',
   },
 });

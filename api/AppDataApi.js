@@ -6,8 +6,13 @@
 import PlaygroundRestApi from 'PlaygroundRestApi';
 
 export default class AppDataApi {
-  static fetchListAsync(resourceUri: string, page: number, email: string, authToken: string) {
-    const separator = resourceUri.indexOf('?') !== -1 ?  '&' : '?';
+  static fetchListAsync(
+    resourceUri: string,
+    page: number,
+    email: string,
+    authToken: string
+  ) {
+    const separator = resourceUri.indexOf('?') !== -1 ? '&' : '?';
     const uriWithQueryParams = `${resourceUri}${separator}page=${page}`;
 
     return PlaygroundRestApi.get(uriWithQueryParams);
@@ -17,9 +22,9 @@ export default class AppDataApi {
     let response = await fetch(uri, {
       method: 'get',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-      }
+      },
     });
 
     let data = await response.json();

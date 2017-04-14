@@ -18,10 +18,7 @@ class HistoryReducer {
   }
 
   static [ActionTypes.ADD_APP_TO_HISTORY](state, action) {
-    return [
-      ...state,
-      action.app,
-    ];
+    return [...state, action.app];
   }
 
   static [ActionTypes.RESET](state, action) {

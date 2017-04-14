@@ -4,23 +4,16 @@
  */
 
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import TouchableNativeFeedbackSafe from '@exponent/react-native-touchable-native-feedback-safe';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import TouchableNativeFeedbackSafe
+  from '@exponent/react-native-touchable-native-feedback-safe';
 
 import { connect } from 'react-redux';
 
 import Actions from 'Actions';
 import RemoteAppListView from 'RemoteAppListView';
 import Colors from 'Colors';
-import {
-  RegularText,
-  BoldText,
-} from 'StyledText';
+import { RegularText, BoldText } from 'StyledText';
 import Router from 'Router';
 
 @connect(data => MyAppsScreen.getDataProps)
@@ -29,7 +22,7 @@ export default class MyAppsScreen extends React.Component {
     return {
       currentUser: data.currentUser,
     };
-  };
+  }
 
   static route = {
     navigationBar: {
@@ -61,15 +54,13 @@ export default class MyAppsScreen extends React.Component {
         </ScrollView>
       );
     } else {
-      return (
-        <RemoteAppListView url="/apps.json" hideCreator />
-      );
+      return <RemoteAppListView url="/apps.json" hideCreator />;
     }
   }
 
   _handleReturnToSignInPress = async () => {
     this.props.dispatch(Actions.signOut());
-  }
+  };
 }
 
 const marginHorizontal = 25;

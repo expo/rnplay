@@ -3,9 +3,7 @@
  * @flow
  */
 
-import Exponent, {
-  Components,
-} from 'exponent';
+import Exponent, { Components } from 'exponent';
 import React from 'react';
 import {
   AppRegistry,
@@ -25,14 +23,8 @@ import {
   NavigationProvider,
   StackNavigation,
 } from '@exponent/ex-navigation';
-import {
-  MaterialIcons,
-  Ionicons,
-} from '@exponent/vector-icons';
-import {
-  connect,
-  Provider as ReduxProvider,
-} from 'react-redux';
+import { MaterialIcons, Ionicons } from '@exponent/vector-icons';
+import { connect, Provider as ReduxProvider } from 'react-redux';
 import PlaygroundStore from 'PlaygroundStore';
 
 import Actions from 'Actions';
@@ -40,10 +32,7 @@ import Colors from 'Colors';
 import Layout from 'Layout';
 import LocalStorage from 'LocalStorage';
 import Router from 'Router';
-import {
-  cacheFonts,
-  cacheImages,
-} from './utilities/cacheHelpers';
+import { cacheFonts, cacheImages } from './utilities/cacheHelpers';
 
 class AppContainer extends React.Component {
   render() {
@@ -65,7 +54,7 @@ class App extends React.Component {
       currentUser: data.currentUser,
       isGlobalLoadingVisible: data.apiState.isLoading,
     };
-  };
+  }
 
   state = {
     bootstrapIsComplete: false,
@@ -82,9 +71,13 @@ class App extends React.Component {
 
     const rootNavigator = this.props.navigation.getNavigator('root');
 
-    if (!isLoggedIn(prevProps.currentUser) && isLoggedIn(this.props.currentUser)) {
+    if (
+      !isLoggedIn(prevProps.currentUser) && isLoggedIn(this.props.currentUser)
+    ) {
       rootNavigator.replace(Router.getRoute(Layout.navigationLayoutRoute));
-    } else if (isLoggedIn(prevProps.currentUser) && !isLoggedIn(this.props.currentUser)) {
+    } else if (
+      isLoggedIn(prevProps.currentUser) && !isLoggedIn(this.props.currentUser)
+    ) {
       rootNavigator.replace(Router.getRoute('authentication'));
     }
   }
@@ -98,31 +91,36 @@ class App extends React.Component {
     }
 
     // Was a rnplay:// link pressed while the app was backgrounded?
-    Linking.addEventListener('url', (event) => {
+    Linking.addEventListener('url', event => {
       let { url } = event;
       this._handleOpenUrl(url);
     });
 
     // Was the app opened from a push notification?
     if (exp.notification) {
-      this._handleNotification({data: exp.notification});
+      this._handleNotification({ data: exp.notification });
     }
 
     // Watch for push notifications while open
-    DeviceEventEmitter.addListener('Exponent.notification', this._handleNotification);
+    DeviceEventEmitter.addListener(
+      'Exponent.notification',
+      this._handleNotification
+    );
   }
 
-  _handleNotification = ({data}) => {
+  _handleNotification = ({ data }) => {
     if (typeof data === 'string') {
       data = JSON.parse(data);
     }
 
     if (data && data.url_token) {
-      this.props.dispatch(Actions.openApp(`rnplay://rnplay.org/apps/${data.url_token}`));
+      this.props.dispatch(
+        Actions.openApp(`rnplay://rnplay.org/apps/${data.url_token}`)
+      );
     }
-  }
+  };
 
-  _handleOpenUrl = (url) => {
+  _handleOpenUrl = url => {
     if (!url || url.indexOf('rnplay://') === -1) {
       return;
     }
@@ -133,7 +131,7 @@ class App extends React.Component {
     } else {
       this.props.dispatch(Actions.openApp(url));
     }
-  }
+  };
 
   render() {
     if (!this.state.bootstrapIsComplete) {
@@ -150,7 +148,8 @@ class App extends React.Component {
           initialRoute={getInitialRoute(this.props.currentUser)}
         />
 
-        {this.props.isGlobalLoadingVisible && this._renderGlobalLoadingOverlay()}
+        {this.props.isGlobalLoadingVisible &&
+          this._renderGlobalLoadingOverlay()}
       </View>
     );
   }
@@ -161,7 +160,7 @@ class App extends React.Component {
         <ActivityIndicator color={Colors.midGrey} />
       </View>
     );
-  }
+  };
 
   async _bootstrap() {
     try {
@@ -170,9 +169,9 @@ class App extends React.Component {
 
       let fontAssets = cacheFonts([
         Platform.OS === 'ios' ? Ionicons.font : MaterialIcons.font,
-        {'open-sans-light': require('./assets/fonts/opensans-light.ttf')},
-        {'open-sans': require('./assets/fonts/opensans-regular.ttf')},
-        {'open-sans-bold': require('./assets/fonts/opensans-bold.ttf')},
+        { 'open-sans-light': require('./assets/fonts/opensans-light.ttf') },
+        { 'open-sans': require('./assets/fonts/opensans-regular.ttf') },
+        { 'open-sans-bold': require('./assets/fonts/opensans-bold.ttf') },
       ]);
 
       let imageAssets = cacheImages([
@@ -183,16 +182,16 @@ class App extends React.Component {
         require('./assets/images/exponent-icon.png'),
       ]);
 
-      let [ user, history, ...rest ] = await Promise.all([
+      let [user, history, ...rest] = await Promise.all([
         fetchUser,
         fetchHistory,
         ...fontAssets,
-        ...imageAssets
+        ...imageAssets,
       ]);
 
       user && this.props.dispatch(Actions.setCurrentUser(user));
       history && this.props.dispatch(Actions.setHistory(history));
-      this.setState({bootstrapIsComplete: true});
+      this.setState({ bootstrapIsComplete: true });
     } catch (e) {
       Alert.alert('Error on bootstrap!', e.message);
     }

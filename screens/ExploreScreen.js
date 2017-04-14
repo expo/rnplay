@@ -4,18 +4,17 @@
  */
 
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { capitalize } from 'lodash';
 import RemoteAppListView from 'RemoteAppListView';
 import Colors from 'Colors';
 import Layout from 'Layout';
 import { RegularText } from 'StyledText';
-import { SlidingTabNavigation, SlidingTabNavigationItem } from '@exponent/ex-navigation';
+import {
+  SlidingTabNavigation,
+  SlidingTabNavigationItem,
+} from '@exponent/ex-navigation';
 
 export default class ExploreScreen extends React.Component {
   static route = {
@@ -27,7 +26,7 @@ export default class ExploreScreen extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <SlidingTabNavigation
           initialTab="popular"
           barBackgroundColor={Colors.tintColor}
@@ -48,26 +47,22 @@ export default class ExploreScreen extends React.Component {
     );
   }
 
-  _renderLabel({route}) {
+  _renderLabel({ route }) {
     let title = capitalize(route.key);
 
     return (
-      <RegularText style={{color: Colors.navigationBarTintColor}}>
+      <RegularText style={{ color: Colors.navigationBarTintColor }}>
         {title}
       </RegularText>
     );
   }
 
   _renderPopular() {
-    return (
-      <RemoteAppListView url="/apps/popular.json" />
-    );
+    return <RemoteAppListView url="/apps/popular.json" />;
   }
 
   _renderPicks() {
-    return (
-      <RemoteAppListView url="/apps/picks.json"  />
-    );
+    return <RemoteAppListView url="/apps/picks.json" />;
   }
 }
 

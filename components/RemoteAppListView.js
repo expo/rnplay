@@ -32,11 +32,11 @@ type Props = {
 
 type State = {
   data: Array<AppData>,
-  hasError: bool,
-  isInitialLoadComplete: bool,
-  isLoadingApp: bool,
-  isRefreshing: bool,
-  isRequestInFlight: bool,
+  hasError: boolean,
+  isInitialLoadComplete: boolean,
+  isLoadingApp: boolean,
+  isRefreshing: boolean,
+  isRequestInFlight: boolean,
   page: number,
 };
 
@@ -86,34 +86,42 @@ export default class RemoteAppListView extends React.Component {
 
   _handleRefreshAsync = async () => {
     try {
-      this.setState({isRefreshing: true});
+      this.setState({ isRefreshing: true });
       await this._fetchApps(1, true);
-    } catch(e) {
+    } catch (e) {
       // TODO: Should look for first parent stack!
       // this.props.navigator.showLocalAlert('Failed to refresh, try again!', Alerts.error);
     } finally {
-      this.setState({isRefreshing: false});
+      this.setState({ isRefreshing: false });
     }
-  }
+  };
 
-  _fetchApps: (page: ?number, isRefreshing?: bool) => Promise<void> = async (page = 1, isRefreshing = false) => {
+  _fetchApps: (page: ?number, isRefreshing?: boolean) => Promise<void> = async (
+    page = 1,
+    isRefreshing = false
+  ) => {
     if (this.state.isRequestInFlight) {
       return;
     }
 
-    this.setState({isRequestInFlight: true});
+    this.setState({ isRequestInFlight: true });
 
     const { currentUser, url } = this.props;
     const { email, authToken } = currentUser;
 
     try {
-      let data = await AppDataApi.fetchListAsync(url, page || 1, email, authToken);
+      let data = await AppDataApi.fetchListAsync(
+        url,
+        page || 1,
+        email,
+        authToken
+      );
 
       if (data.error) {
         this.props.navigator.showLocalAlert(
           'It would seem that you are unauthorized to access this. Weird.',
           Alerts.error
-        )
+        );
         return;
       }
 
@@ -130,9 +138,10 @@ export default class RemoteAppListView extends React.Component {
         isInitialLoadComplete: true,
         hasError: false,
       });
-    } catch(e) {
+    } catch (e) {
       this.props.navigator.showLocalAlert(
-        'Uh oh something went wrong...', Alerts.error
+        'Uh oh something went wrong...',
+        Alerts.error
       );
 
       this.setState({
@@ -145,7 +154,7 @@ export default class RemoteAppListView extends React.Component {
 
   _handleEndReached = () => {
     const nextPage = this.state.page + 1;
-    this.setState({page: nextPage});
+    this.setState({ page: nextPage });
     this._fetchApps(nextPage);
   };
 
@@ -166,19 +175,22 @@ export default class RemoteAppListView extends React.Component {
       <View style={styles.retryButtonWrapper}>
         <Image
           source={require('../assets/images/network-error.png')}
-          style={styles.networkErrorImage} />
+          style={styles.networkErrorImage}
+        />
 
         <TouchableOpacity
           style={styles.retryButtonHighlight}
           onPress={this._fetchApps}>
           <View style={styles.retryButtonView}>
-            <RegularText style={styles.retryButtonText}>Connection failed. Retry?</RegularText>
+            <RegularText style={styles.retryButtonText}>
+              Connection failed. Retry?
+            </RegularText>
           </View>
         </TouchableOpacity>
       </View>
     );
   }
-};
+}
 
 var styles = StyleSheet.create({
   retryButtonWrapper: {
@@ -199,9 +211,9 @@ var styles = StyleSheet.create({
   retryButtonText: {
     paddingLeft: 20,
     paddingRight: 20,
-    color:'white',
-    textAlign:'center',
-    fontWeight:'700'
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: '700',
   },
   loadingContainer: {
     position: 'absolute',

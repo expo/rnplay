@@ -4,12 +4,7 @@
  */
 
 import React from 'react';
-import {
-  ListView,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import { ListView, ScrollView, Text, View } from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -21,7 +16,7 @@ export default class HistoryScreen extends React.Component {
     return {
       history: data.history,
     };
-  };
+  }
 
   static route = {
     navigationBar: {
@@ -30,8 +25,6 @@ export default class HistoryScreen extends React.Component {
   };
 
   render() {
-    return (
-      <AppListView apps={this.props.history} />
-    );
+    return <AppListView apps={this.props.history} />;
   }
 }

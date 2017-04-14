@@ -18,10 +18,7 @@ import { connect } from 'react-redux';
 
 import Actions from 'Actions';
 import Colors from 'Colors';
-import {
-  BoldText,
-  RegularText,
-} from 'StyledText';
+import { BoldText, RegularText } from 'StyledText';
 import Router from 'Router';
 
 @connect()
@@ -29,9 +26,14 @@ class SettingsButton extends React.Component {
   render() {
     return (
       <TouchableOpacity
-        style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginRight: 15}}
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginRight: 15,
+        }}
         onPress={() => this.props.dispatch(Actions.signOut())}>
-        <RegularText style={{color: '#fff'}}>Sign Out</RegularText>
+        <RegularText style={{ color: '#fff' }}>Sign Out</RegularText>
       </TouchableOpacity>
     );
   }
@@ -46,7 +48,7 @@ export default class AboutScreen extends React.Component {
           return <SettingsButton />;
         }
       },
-    }
+    },
   };
 
   render() {
@@ -88,11 +90,19 @@ export default class AboutScreen extends React.Component {
         <RegularText style={styles.text}>
           In addition to making your playground experiences compatible with
           future releases of this app, Exponent provides a wide range of native
-          APIs like Video and Svg. <RegularText onPress={this._openExponentDocs} style={styles.linkText}>Read the docs for Exponent here.</RegularText>
+          APIs like Video and Svg.
+          {' '}
+          <RegularText onPress={this._openExponentDocs} style={styles.linkText}>
+            Read the docs for Exponent here.
+          </RegularText>
         </RegularText>
 
         <RegularText style={styles.otherQuestionsText}>
-          Questions? Please get in touch: <RegularText onPress={this._onPressEmail} style={styles.linkText}>info@rnplay.org</RegularText>
+          Questions? Please get in touch:
+          {' '}
+          <RegularText onPress={this._onPressEmail} style={styles.linkText}>
+            info@rnplay.org
+          </RegularText>
         </RegularText>
       </ScrollView>
     );

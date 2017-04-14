@@ -12,7 +12,7 @@ export default class AuthenticationApi {
         email,
         password,
         remember_me: true,
-      }
+      },
     };
 
     return PlaygroundRestApi.post('/users/sign_in', params);
@@ -23,7 +23,7 @@ export default class AuthenticationApi {
       user: {
         email,
         password,
-      }
+      },
     };
 
     return PlaygroundRestApi.post('/users', params);

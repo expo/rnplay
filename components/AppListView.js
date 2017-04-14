@@ -33,13 +33,13 @@ import type { AppData } from 'SharedTypes';
 
 type Props = {
   apps: Array<AppData>,
-  isRefreshing: bool,
+  isRefreshing: boolean,
   onRefresh: () => void,
   onEndReached: () => void,
 };
 
 type State = {
-  isLoadingApp: bool,
+  isLoadingApp: boolean,
   dataSource: ListView.DataSource,
 };
 
@@ -55,7 +55,6 @@ export default class AppListView extends React.Component {
       rowHasChanged: (row1, row2) => row1 !== row2,
     });
 
-
     if (props.apps) {
       dataSource = dataSource.cloneWithRows(props.apps);
     }
@@ -68,7 +67,9 @@ export default class AppListView extends React.Component {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.apps !== this.props.apps) {
-      this.setState({dataSource: this.state.dataSource.cloneWithRows(nextProps.apps)});
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.apps),
+      });
     }
   }
 
@@ -86,21 +87,20 @@ export default class AppListView extends React.Component {
 
   _renderAppList() {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <ListView
-          style={{flex: 1}}
-          contentContainerStyle={{backgroundColor: '#fff'}}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ backgroundColor: '#fff' }}
           dataSource={this.state.dataSource}
           renderRow={this._renderApp}
           initialPageSize={10}
           pageSize={5}
           refreshControl={
-            this.props.onRefresh && (
+            this.props.onRefresh &&
               <RefreshControl
                 refreshing={this.props.isRefreshing}
                 onRefresh={this.props.onRefresh}
               />
-            )
           }
           onEndReachedThreshold={1200}
           onEndReached={this.props.onEndReached}
@@ -118,9 +118,9 @@ export default class AppListView extends React.Component {
       ExponentUtil.shareAsync('Share this experience', message, url);
     } else {
       ActionSheetIOS.showShareActionSheetWithOptions(
-        {url, message},
-        (error) => console.log(error),
-        (success) => console.log(success)
+        { url, message },
+        error => console.log(error),
+        success => console.log(success)
       );
     }
   }
@@ -161,19 +161,19 @@ export default class AppListView extends React.Component {
       return;
     }
 
-    const avatarUrl = 'https://rnplay.org/' + app.creator.avatar_url + "?v=1";
+    const avatarUrl = 'https://rnplay.org/' + app.creator.avatar_url + '?v=1';
 
     return (
       <View style={styles.creator}>
         <View style={styles.avatarContainer}>
-          <Image style={styles.avatar} source={{uri: avatarUrl}} />
+          <Image style={styles.avatar} source={{ uri: avatarUrl }} />
         </View>
 
         <RegularText style={styles.username} numberOfLines={1}>
           {app.creator.username || 'guest'}
         </RegularText>
       </View>
-    )
+    );
   }
 
   _selectApp(app: AppData) {
@@ -181,17 +181,17 @@ export default class AppListView extends React.Component {
       return;
     }
 
-    this.setState({isLoadingApp: true});
+    this.setState({ isLoadingApp: true });
     AppState.addEventListener('change', this._handleAppStateChange);
     this.props.dispatch(Actions.openApp(app));
   }
 
   _handleAppStateChange = (appState: string) => {
     if (this.state.isLoadingApp && appState === 'active') {
-      this.setState({isLoadingApp: false});
+      this.setState({ isLoadingApp: false });
       AppState.removeEventListener('change', this._handleAppStateChange);
     }
-  }
+  };
 
   _renderLoading() {
     return (
@@ -204,7 +204,7 @@ export default class AppListView extends React.Component {
   _renderNoResults() {
     return <View />;
   }
-};
+}
 
 var styles = StyleSheet.create({
   container: {
@@ -229,7 +229,7 @@ var styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 8,
     borderBottomWidth: 3 / PixelRatio.get(),
-    borderBottomColor: "#eee"
+    borderBottomColor: '#eee',
   },
   appTextDescription: {
     flexDirection: 'column',
@@ -267,7 +267,7 @@ var styles = StyleSheet.create({
     height: 30,
     marginBottom: 5,
     borderRadius: 15,
-    backgroundColor: '#eee'
+    backgroundColor: '#eee',
   },
   avatar: {
     width: 30,
@@ -279,7 +279,7 @@ var styles = StyleSheet.create({
     color: 'white',
     flex: 1,
     fontSize: 25,
-    marginLeft: 20
+    marginLeft: 20,
   },
   appTitle: {
     fontSize: 16,

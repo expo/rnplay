@@ -4,15 +4,15 @@
  */
 
 import type { EffectParams } from 'redux-effex';
-import {
-  Notifications,
-  Permissions,
-} from 'exponent';
+import { Notifications, Permissions } from 'exponent';
 
 import Actions from 'Actions';
 import PlaygroundRestApi from 'PlaygroundRestApi';
 
-export default async function setCurrentUserAsync({action, getState}: EffectParams) {
+export default async function setCurrentUserAsync({
+  action,
+  getState,
+}: EffectParams) {
   if (!action.user || action.user.isGuest) {
     return;
   }
@@ -40,7 +40,7 @@ export default async function setCurrentUserAsync({action, getState}: EffectPara
       console.log(response.error);
       console.log('Error response from server when posting token');
     }
-  } catch(e) {
+  } catch (e) {
     console.log(e);
     console.log('Posting push token to server threw an exception');
   }

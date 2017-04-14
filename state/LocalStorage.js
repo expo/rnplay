@@ -16,7 +16,7 @@ async function getUserAsync() {
   try {
     let user = JSON.parse(results);
     return user;
-  } catch(e) {
+  } catch (e) {
     return null;
   }
 }
@@ -35,7 +35,7 @@ async function getHistoryAsync() {
   try {
     let history = JSON.parse(results);
     return history;
-  } catch(e) {
+  } catch (e) {
     return null;
   }
 }

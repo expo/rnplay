@@ -3,6 +3,6 @@
  * @flow
  */
 
-export default function isValidEmail(email: string): bool {
+export default function isValidEmail(email: string): boolean {
   return /^([\w_\.\-\+])+\@([\w\-]+\.)+([\w]{2,10})+$/.test(email);
 }

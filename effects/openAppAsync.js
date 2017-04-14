@@ -10,7 +10,11 @@ import AppDataApi from 'AppDataApi';
 import Actions from 'Actions';
 import LocalStorage from 'LocalStorage';
 
-export default async function openAppAsync({action, dispatch, getState}: EffectParams) {
+export default async function openAppAsync({
+  action,
+  dispatch,
+  getState,
+}: EffectParams) {
   let { app } = action;
 
   if (typeof app === 'string') {
@@ -30,17 +34,15 @@ async function fetchAppDataAsync(url, dispatch) {
 
   try {
     dispatch(Actions.showGlobalLoading());
-    let httpUrl = url.indexOf('rnplay:') === 0 ? url.replace('rnplay:', 'http:') : url;
+    let httpUrl = url.indexOf('rnplay:') === 0
+      ? url.replace('rnplay:', 'http:')
+      : url;
     app = await AppDataApi.fetchAppDataAsync(httpUrl);
-  } catch(e) {
-    Alert.alert(
-      'Error',
-      `There was a problem loading ${url}.`,
-      [
-        {text: 'Try again', onPress: () => dispatch(Actions.openApp(url))},
-        {text: 'Cancel', style: 'cancel'},
-      ]
-    );
+  } catch (e) {
+    Alert.alert('Error', `There was a problem loading ${url}.`, [
+      { text: 'Try again', onPress: () => dispatch(Actions.openApp(url)) },
+      { text: 'Cancel', style: 'cancel' },
+    ]);
     throw e;
   } finally {
     dispatch(Actions.hideGlobalLoading());

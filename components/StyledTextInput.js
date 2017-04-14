@@ -4,15 +4,11 @@
  */
 
 import React from 'react';
-import {
-  StyleSheet,
-  TextInput,
-  View,
-} from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
 type State = {
-  isFocused: bool,
-}
+  isFocused: boolean,
+};
 
 export default class StyledTextInput extends React.Component {
   _textInput: TextInput;
@@ -23,15 +19,17 @@ export default class StyledTextInput extends React.Component {
 
   render() {
     const { isFocused } = this.state;
-    const placeholderTextColor = isFocused ? "#bca1cf" : "#a678c8";
-    const borderBottomColor = isFocused ? "#fff" : "#a678c8";
+    const placeholderTextColor = isFocused ? '#bca1cf' : '#a678c8';
+    const borderBottomColor = isFocused ? '#fff' : '#a678c8';
 
     return (
-      <View style={[styles.textInputWrapper, {borderBottomColor}]}>
+      <View style={[styles.textInputWrapper, { borderBottomColor }]}>
         <TextInput
           placeholderTextColor={placeholderTextColor}
           underlineColorAndroid="transparent"
-          ref={view => { this._textInput = view; }}
+          ref={view => {
+            this._textInput = view;
+          }}
           {...this.props}
           onFocus={this._onFocus}
           onBlur={this._onBlur}
@@ -50,12 +48,12 @@ export default class StyledTextInput extends React.Component {
   }
 
   _onFocus = () => {
-    this.setState({isFocused: true});
+    this.setState({ isFocused: true });
     this.props.onFocus && this.props.onFocus();
   };
 
   _onBlur = () => {
-    this.setState({isFocused: false});
+    this.setState({ isFocused: false });
     this.props.onBlur && this.props.onBlur();
   };
 }
@@ -74,4 +72,3 @@ const styles = StyleSheet.create({
     height: 40,
   },
 });
-

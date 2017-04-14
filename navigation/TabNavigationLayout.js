@@ -4,11 +4,7 @@
  */
 
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   StackNavigation,
   TabNavigation,
@@ -28,10 +24,9 @@ const defaultRouteConfig = {
   },
 };
 
-type TabRenderFunction = (isSelected: bool) => ReactElement<any>;
+type TabRenderFunction = (isSelected: boolean) => ReactElement<any>;
 
 export default class TabNavigationLayout extends React.Component {
-
   render() {
     return (
       <TabNavigation
@@ -41,7 +36,8 @@ export default class TabNavigationLayout extends React.Component {
 
         <TabNavigationItem
           id="explore"
-          renderIcon={isSelected => this._renderIcon('Explore', 'ios-compass-outline', isSelected)}>
+          renderIcon={isSelected =>
+            this._renderIcon('Explore', 'ios-compass-outline', isSelected)}>
           <StackNavigation
             defaultRouteConfig={defaultRouteConfig}
             initialRoute={Router.getRoute('explore')}
@@ -50,7 +46,8 @@ export default class TabNavigationLayout extends React.Component {
 
         <TabNavigationItem
           id="myApps"
-          renderIcon={isSelected => this._renderIcon('My Apps', 'ios-person-outline', isSelected)}>
+          renderIcon={isSelected =>
+            this._renderIcon('My Apps', 'ios-person-outline', isSelected)}>
           <StackNavigation
             defaultRouteConfig={defaultRouteConfig}
             initialRoute={Router.getRoute('myApps')}
@@ -59,7 +56,8 @@ export default class TabNavigationLayout extends React.Component {
 
         <TabNavigationItem
           id="history"
-          renderIcon={isSelected => this._renderIcon('History', 'ios-clock-outline', isSelected)}>
+          renderIcon={isSelected =>
+            this._renderIcon('History', 'ios-clock-outline', isSelected)}>
           <StackNavigation
             defaultRouteConfig={defaultRouteConfig}
             initialRoute={Router.getRoute('history')}
@@ -68,7 +66,8 @@ export default class TabNavigationLayout extends React.Component {
 
         <TabNavigationItem
           id="about"
-          renderIcon={isSelected => this._renderIcon('About', 'ios-help-circle-outline', isSelected)}>
+          renderIcon={isSelected =>
+            this._renderIcon('About', 'ios-help-circle-outline', isSelected)}>
           <StackNavigation
             defaultRouteConfig={defaultRouteConfig}
             initialRoute={Router.getRoute('about')}
@@ -78,14 +77,18 @@ export default class TabNavigationLayout extends React.Component {
     );
   }
 
-  _renderIcon(title: string, iconName: string, isSelected: bool): ReactElement<any> {
+  _renderIcon(
+    title: string,
+    iconName: string,
+    isSelected: boolean
+  ): ReactElement<any> {
     let color = isSelected ? Colors.tabIconSelected : Colors.tabIconDefault;
 
     return (
       <View style={styles.tabItemContainer}>
         <Ionicons name={iconName} size={32} color={color} />
 
-        <Text style={[styles.tabTitleText, {color}]} numberOfLines={1}>
+        <Text style={[styles.tabTitleText, { color }]} numberOfLines={1}>
           {title}
         </Text>
       </View>

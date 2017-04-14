@@ -3,16 +3,18 @@
  * @flow
  */
 
-import {
-  Constants,
-} from 'exponent';
+import { Constants } from 'exponent';
 
 type RequestBody = ?(string | Object);
 
 const baseUrl = 'https://rnplay.org';
 
 export default class RestApi {
-  static async get(url: string, authEmail: ?string = '', authToken: ?string = '') {
+  static async get(
+    url: string,
+    authEmail: ?string = '',
+    authToken: ?string = ''
+  ) {
     let platformParam = `?platform=${global.PLATFORM}`;
 
     if (url.indexOf('?') !== -1) {
@@ -22,20 +24,25 @@ export default class RestApi {
     let response = await fetch(baseUrl + url + platformParam, {
       method: 'get',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-User-Email': authEmail,
         'X-User-Token': authToken,
         'Exponent-SDK-Version': Constants.exponentVersion,
-      }
+      },
     });
 
     return response.json();
   }
 
-  static async post(url: string, body: RequestBody = '', authEmail: ?string = '', authToken: ?string = '') {
+  static async post(
+    url: string,
+    body: RequestBody = '',
+    authEmail: ?string = '',
+    authToken: ?string = ''
+  ) {
     let headers = {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     };
 
@@ -52,7 +59,7 @@ export default class RestApi {
     let response = await fetch(baseUrl + url, {
       method: 'post',
       headers,
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
 
     // It's possible that the server sends us back something
@@ -61,8 +68,8 @@ export default class RestApi {
     let result;
     try {
       result = await response.json();
-    } catch(e) {
-      result = {error: e};
+    } catch (e) {
+      result = { error: e };
     }
 
     return result;
@@ -72,19 +79,19 @@ export default class RestApi {
     let response = await fetch(baseUrl + url, {
       method: 'put',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
 
     return response.json();
   }
 
   static async delete(url: string) {
-    let response = await fetch(baseUrl + url, {method: 'delete'});
+    let response = await fetch(baseUrl + url, { method: 'delete' });
     let result = await response.json();
 
     return result;
   }
-};
+}

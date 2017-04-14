@@ -17,7 +17,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import TouchableNativeFeedbackSafe from '@exponent/react-native-touchable-native-feedback-safe';
+import TouchableNativeFeedbackSafe
+  from '@exponent/react-native-touchable-native-feedback-safe';
 
 import Actions from 'Actions';
 import Alerts from 'Alerts';
@@ -35,9 +36,9 @@ import { connect } from 'react-redux';
 type State = {
   email: ?string,
   password: ?string,
-  isRequestInFlight: bool,
+  isRequestInFlight: boolean,
   keyboardHeight: number,
-}
+};
 
 @connect()
 export default class AuthenticationScreen extends React.Component {
@@ -58,7 +59,9 @@ export default class AuthenticationScreen extends React.Component {
   };
 
   componentWillMount() {
-    this._unsubscribe = KeyboardEventListener.subscribe(this._onKeyboardVisibilityChange);
+    this._unsubscribe = KeyboardEventListener.subscribe(
+      this._onKeyboardVisibilityChange
+    );
   }
 
   componentWillUnmount() {
@@ -70,7 +73,9 @@ export default class AuthenticationScreen extends React.Component {
 
   render() {
     return (
-      <Components.LinearGradient style={{flex: 1}} colors={['#8E0AC2', Colors.tintColor]}>
+      <Components.LinearGradient
+        style={{ flex: 1 }}
+        colors={['#8E0AC2', Colors.tintColor]}>
         <ScrollView
           onScroll={this._blurFocusedTextInput}
           scrollEventThrottle={32}
@@ -79,7 +84,7 @@ export default class AuthenticationScreen extends React.Component {
           style={styles.container}
           contentContainerStyle={styles.contentContainer}>
 
-          <View style={{flex: 1, alignItems: 'center'}}>
+          <View style={{ flex: 1, alignItems: 'center' }}>
             {this._maybeRenderLogo()}
 
             <View>
@@ -87,7 +92,9 @@ export default class AuthenticationScreen extends React.Component {
                 autoCorrect={false}
                 autoCapitalize="none"
                 blurOnSubmit={false}
-                onChangeText={value => { this.setState({email: value.trim()}); }}
+                onChangeText={value => {
+                  this.setState({ email: value.trim() });
+                }}
                 onSubmitEditing={this._handleSubmitEmail}
                 value={this.state.email}
                 keyboardType="email-address"
@@ -95,8 +102,12 @@ export default class AuthenticationScreen extends React.Component {
               />
 
               <StyledTextInput
-                ref={view => { this._passwordInput = view; }}
-                onChangeText={value => { this.setState({password: value.trim()}); }}
+                ref={view => {
+                  this._passwordInput = view;
+                }}
+                onChangeText={value => {
+                  this.setState({ password: value.trim() });
+                }}
                 onSubmitEditing={this._handleSignInAsync}
                 blurOnSubmit={false}
                 value={this.state.password}
@@ -136,10 +147,9 @@ export default class AuthenticationScreen extends React.Component {
       return;
     }
 
-
     return (
       <TouchableOpacity
-        hitSlop={{top: 15, left: 15, right: 15, bottom: 15}}
+        hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
         style={styles.anonymousEntryContainer}
         onPress={this._handleAnonymousEntry}>
         <RegularText style={styles.anonymousEntryText}>
@@ -161,13 +171,17 @@ export default class AuthenticationScreen extends React.Component {
     }
 
     return (
-      <View style={{marginTop: 10}}>
+      <View style={{ marginTop: 10 }}>
         <TouchableNativeFeedbackSafe
           background={TouchableNativeFeedbackSafe.Ripple()}
           delayPressIn={0}
           onPress={this._handleSignInAsync}
           style={styles.signInButton}>
-          <RegularText style={styles.signInText}>Sign in <RegularText style={styles.registerText}>(or register)</RegularText></RegularText>
+          <RegularText style={styles.signInText}>
+            Sign in
+            {' '}
+            <RegularText style={styles.registerText}>(or register)</RegularText>
+          </RegularText>
         </TouchableNativeFeedbackSafe>
         {loadingIndicator}
       </View>
@@ -176,7 +190,7 @@ export default class AuthenticationScreen extends React.Component {
 
   _handleSubmitEmail = () => {
     this._passwordInput && this._passwordInput.focus();
-  }
+  };
 
   _handleSignInAsync = async () => {
     let { isRequestInFlight, email, password } = this.state;
@@ -186,19 +200,25 @@ export default class AuthenticationScreen extends React.Component {
     } else if (!email || !password) {
       return;
     } else if (!isValidEmail(email)) {
-      this.props.navigator.showLocalAlert('Please enter a valid email address', Alerts.error);
+      this.props.navigator.showLocalAlert(
+        'Please enter a valid email address',
+        Alerts.error
+      );
       return;
     }
 
     try {
-      this.setState({isRequestInFlight: true});
+      this.setState({ isRequestInFlight: true });
       let result = await AuthenticationApi.signIn(email, password);
 
       if (result.error) {
         let isEmailTaken = await AuthenticationApi.isEmailTaken(email);
 
         if (isEmailTaken) {
-          this.props.navigator.showLocalAlert('Oops, your password seems to be incorrect', Alerts.error);
+          this.props.navigator.showLocalAlert(
+            'Oops, your password seems to be incorrect',
+            Alerts.error
+          );
         } else {
           this._promptForRegistration();
         }
@@ -206,12 +226,15 @@ export default class AuthenticationScreen extends React.Component {
         this._handleSuccessfulLoginAsync(result);
       }
     } catch (e) {
-      console.log({e});
-      this.props.navigator.showLocalAlert('Something went wrong! Please try again', Alerts.error);
+      console.log({ e });
+      this.props.navigator.showLocalAlert(
+        'Something went wrong! Please try again',
+        Alerts.error
+      );
     } finally {
-      this.setState({isRequestInFlight: false});
+      this.setState({ isRequestInFlight: false });
     }
-  }
+  };
 
   _promptForRegistration = () => {
     if (!this.state.email) {
@@ -222,11 +245,11 @@ export default class AuthenticationScreen extends React.Component {
       'Account registration',
       `There is no account matching ${this.state.email}, would you like to register it?`,
       [
-        {text: 'Register the account', onPress: this._registerAccountAsync},
-        {text: 'Cancel', onPress: () => {}, style: 'cancel'},
+        { text: 'Register the account', onPress: this._registerAccountAsync },
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
       ]
     );
-  }
+  };
 
   _registerAccountAsync = async () => {
     let { email, password } = this.state;
@@ -237,18 +260,18 @@ export default class AuthenticationScreen extends React.Component {
 
     let result = await AuthenticationApi.signUp(email, password);
     this._handleSuccessfulLoginAsync(result);
-  }
+  };
 
   _handleSuccessfulLoginAsync = async (result: Object) => {
     this._blurFocusedTextInput();
     this.props.navigator.hideLocalAlert();
     this.props.dispatch(Actions.signIn(result));
-  }
+  };
 
   _handleAnonymousEntry = async () => {
     this.props.navigator.hideLocalAlert();
-    this.props.dispatch(Actions.signIn({isGuest: true}));
-  }
+    this.props.dispatch(Actions.signIn({ isGuest: true }));
+  };
 
   _blurFocusedTextInput = () => {
     TextInput.State.blurTextInput(TextInput.State.currentlyFocusedField());
@@ -258,9 +281,10 @@ export default class AuthenticationScreen extends React.Component {
     return this.state.keyboardHeight > 0;
   }
 
-  _onKeyboardVisibilityChange = (
-    { keyboardHeight, layoutAnimationConfig }:
-    { keyboardHeight: number, layoutAnimationConfig: ?Object }) => {
+  _onKeyboardVisibilityChange = ({
+    keyboardHeight,
+    layoutAnimationConfig,
+  }: { keyboardHeight: number, layoutAnimationConfig: ?Object }) => {
     if (keyboardHeight === 0) {
       this._blurFocusedTextInput();
     }
@@ -269,7 +293,7 @@ export default class AuthenticationScreen extends React.Component {
       LayoutAnimation.configureNext(layoutAnimationConfig);
     }
 
-    this.setState({keyboardHeight});
+    this.setState({ keyboardHeight });
   };
 }
 
